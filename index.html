@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,width=device-width">
+    <title>WebGIS with Customized LayerList</title>
+    
+    <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.32/"></script>
+    <script type="module" src="https://js.arcgis.com/calcite-components/3.2.1/calcite.esm.js"></script>
+
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .btn-group button {
+            cursor: pointer;
+            padding: 9px;
+            font-size: 12px;
+            text-align: center;
+            border-radius: 2px;
+            border-width: 0px;
+            margin-right: 5px;
+        }
+        .btn-group button:hover {
+            background-color: rgb(28, 139, 208);
+        }
+        .btn-group button:focus {
+            background-color: rgb(210, 57, 57);
+        }
+    </style>
+</head>
+<body>
+    <div id="viewDiv"></div>
+    <script src="main.js"></script>
+</body>
+</html>
