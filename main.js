@@ -241,7 +241,9 @@ require([
     });
 
     // Add Home and LayerList widgets
-    view.ui.add(new Home({ view: view }), "top-leading");
+    view.ui.add(new Home({ view: view }), "top-trailing");
+    view.ui.move("navigation-toggle","top-right");
+    view.ui.move("zoom","top-trailing");
     
     view.when(() => {
         const layerList = new LayerList({
