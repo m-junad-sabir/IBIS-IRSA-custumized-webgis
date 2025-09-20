@@ -157,78 +157,164 @@ require([
         };
     }
 
-    // Explicitly define the layers with field information for popups
-    const balochistanLayer = new FeatureLayer({
-        url: "https://113.197.48.2:6443/arcgis/rest/services/BETA/Irrigation_Boundaries/MapServer/0",
-        title: "Balochistan",
-        visible: true,
-        outFields: ["*"]
-    });
-    createPopupTemplate(balochistanLayer, [
-        { fieldName: "Name", label: "Name" },
-        { fieldName: "Zone", label: "Zone" },
-        { fieldName: "Circle", label: "Circle" }
-    ]);
+    // ~~~~~~~~~ DEFINE LAYERS ~~~~~~~~~~~~~~
+    const ChashmaBarrageGroup = new GroupLayer({
 
-    const irrigationZonesLayer = new FeatureLayer({
-        url: "https://113.197.48.2:6443/arcgis/rest/services/BETA/Irrigation_Boundaries/MapServer/1",
-        title: "Irrigation Zones",
-        visible: true,
-        outFields: ["*"]
-    });
-    createPopupTemplate(irrigationZonesLayer, [
-        { fieldName: "Zone", label: "Zone" }
-    ]);
-
-    const irrigationCircleLayer = new FeatureLayer({
-        url: "https://113.197.48.2:6443/arcgis/rest/services/BETA/Irrigation_Boundaries/MapServer/2",
-        title: "Irrigation Circle",
-        visible: true,
-        outFields: ["*"]
-    });
-    createPopupTemplate(irrigationCircleLayer, [
-        { fieldName: "Circle", label: "Circle" }
-    ]);
-
-    // GroupLayer for Irrigation Divisions and its sublayers
-    const irrigationDivisionsGroup = new GroupLayer({
-        url: "https://113.197.48.2:6443/arcgis/rest/services/BETA/Irrigation_Boundaries/MapServer/3",
-        title: "Irrigation Divisions",
-        visible: true,
-        layers: [
+    url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/0",
+    title: "Chashma Barrage",
+    visible: true,
+    layers: [
             new FeatureLayer({
-                url: "https://113.197.48.2:6443/arcgis/rest/services/BETA/Irrigation_Boundaries/MapServer/5",
-                title: "Irrigation Divisions (Child)",
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/1",
+                title: "CJ Link Gauges",
                 visible: true,
                 outFields: ["*"]
             }),
             new FeatureLayer({
-                url: "https://113.197.48.2:6443/arcgis/rest/services/BETA/Irrigation_Boundaries/MapServer/4",
-                title: "Irrigation Circle (Child)",
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/2",
+                title: "Chashma Gauges",
+                visible: true,
+                outFields: ["*"]
+            }),
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/3",
+                title: "Chasma",
+                visible: true,
+                outFields: ["*"]
+            })
+         ]
+    });
+    ////////////////////////////////////////////////////////////////
+    const SulemankiHeadworksGroup = new GroupLayer({
+
+    url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/32",
+    title: "Sulemanki Headworks",
+    visible: true,
+    layers: [
+        new FeatureLayer({
+            url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/33",
+            title: "Sulemanki Headworks Gauges",
+            visible: true,
+            outFields: ["*"]
+        }),
+        new FeatureLayer({
+            url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/34",
+            title: "Suleimanki Headworks",
+            visible: true,
+            outFields: ["*"]
+        })
+    ]
+    });
+    ////////////////////////////////////////////////////////////////
+    const BallokiHeadworksGroup = new GroupLayer({
+
+        url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/35",
+        title: "Balloki Headworks",
+        visible: true,
+        layers: [
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/36",
+                title: "Balloki Gauges",
+                visible: true,
+                outFields: ["*"]
+            }),
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/37",
+                title: "Balloki",
+                visible: true,
+                outFields: ["*"]
+            })
+        ]
+    });
+    ////////////////////////////////////////////////////////////////
+    const TrimmuHeadworksGroup = new GroupLayer({
+
+        url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/41",
+        title: "Trimmu Headworks",
+        visible: true,
+        layers: [
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/42",
+                title: "Trimmu Gauges",
+                visible: true,
+                outFields: ["*"]
+            }),
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/43",
+                title: "Trimmu",
                 visible: true,
                 outFields: ["*"]
             })
         ]
     });
     
-    // Add popups to sublayers
-    createPopupTemplate(irrigationDivisionsGroup.layers.getItemAt(0), [
+    // ~~~~~~~~~~~ DEFINE POP-UP TEMPLATES ~~~~~~~~~~~~~~~~
+    createPopupTemplate(ChashmaBarrageGroup.layers.getItemAt(0), [
         { fieldName: "Name", label: "Name" },
-        { fieldName: "Zone", label: "Zone" },
-        { fieldName: "Circle", label: "Circle" }
+        { fieldName: "Layer", label: "Layer" },
+        { fieldName: "Site_Id", label: "Site_Id" },
+        { fieldName: "Site", label: "Site" }
     ]);
-    createPopupTemplate(irrigationDivisionsGroup.layers.getItemAt(1), [
-        { fieldName: "Circle", label: "Circle" }
+    createPopupTemplate(ChashmaBarrageGroup.layers.getItemAt(1), [
+    { fieldName: "Name", label: "Name" },
+    { fieldName: "Layer", label: "Layer" },
+    { fieldName: "Site_Id", label: "Site_Id" },
+    { fieldName: "Site", label: "Site" }
+    ]);
+    createPopupTemplate(ChashmaBarrageGroup.layers.getItemAt(2), [
+        { fieldName: "Name", label: "Name" },
+        { fieldName: "Layer", label: "Layer" },
+        { fieldName: "Site_Id", label: "Site_Id" },
+        { fieldName: "Site", label: "Site" }
+    ]);
+    ////////////////////////////////////////////////////////////////
+    createPopupTemplate(SulemankiHeadworksGroup.layers.getItemAt(0), [
+        { fieldName: "Name", label: "Name" },
+        { fieldName: "Layer", label: "Layer" },
+        { fieldName: "Site_Id", label: "Site_Id" },
+        { fieldName: "Site", label: "Site" }
+    ]);
+    createPopupTemplate(SulemankiHeadworksGroup.layers.getItemAt(1), [
+        { fieldName: "Name", label: "Name" },
+        { fieldName: "Layer", label: "Layer" },
+        { fieldName: "Site_Id", label: "Site_Id" },
+        { fieldName: "Site", label: "Site" }
+    ]);
+    ////////////////////////////////////////////////////////////////
+    createPopupTemplate(BallokiHeadworksGroup.layers.getItemAt(0), [
+        { fieldName: "Name", label: "Name" },
+        { fieldName: "Layer", label: "Layer" },
+        { fieldName: "Site_Id", label: "Site_Id" },
+        { fieldName: "Site", label: "Site" }
+    ]);
+    createPopupTemplate(BallokiHeadworksGroup.layers.getItemAt(1), [
+        { fieldName: "Name", label: "Name" },
+        { fieldName: "Layer", label: "Layer" },
+        { fieldName: "Site_Id", label: "Site_Id" },
+        { fieldName: "Site", label: "Site" }
+    ]);
+    ////////////////////////////////////////////////////////////////
+    createPopupTemplate(TrimmuHeadworksGroup.layers.getItemAt(0), [
+        { fieldName: "Name", label: "Name" },
+        { fieldName: "Layer", label: "Layer" },
+        { fieldName: "Site_Id", label: "Site_Id" },
+        { fieldName: "Site", label: "Site" }
+    ]);
+    createPopupTemplate(TrimmuHeadworksGroup.layers.getItemAt(1), [
+        { fieldName: "Name", label: "Name" },
+        { fieldName: "Layer", label: "Layer" },
+        { fieldName: "Site_Id", label: "Site_Id" },
+        { fieldName: "Site", label: "Site" }
     ]);
 
     // Create a new Map with the defined layers
     const map = new Map({
         basemap: "satellite",
         layers: [
-            balochistanLayer,
-            irrigationZonesLayer,
-            irrigationCircleLayer,
-            irrigationDivisionsGroup
+            TrimmuHeadworksGroup,
+            BallokiHeadworksGroup,
+            SulemankiHeadworksGroup,
+            ChashmaBarrageGroup
         ]
     });
 
@@ -236,8 +322,8 @@ require([
     const view = new MapView({
         container: "viewDiv",
         map: map,
-        center: [66.5, 28.3],
-        zoom: 7
+        center: [68, 30.6],
+        zoom: 6
     });
 
     // Add Home and LayerList widgets
