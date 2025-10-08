@@ -9,7 +9,8 @@ require([
   "esri/widgets/Legend",
   "esri/layers/support/LabelClass",
   "esri/PopupTemplate",
-], function(Map, MapView, MapImageLayer, FeatureLayer, GroupLayer, LayerList, Home, Legend, LabelClass, PopupTemplate) {
+  "esri/widgets/Expand"
+], function(Map, MapView, MapImageLayer, FeatureLayer, GroupLayer, LayerList, Home, Legend, LabelClass, PopupTemplate, Expand) {
 
     const resultDivPanel = document.getElementById("resultDivPanel");
     const layerTitleElement = document.getElementById("layerTitle");
@@ -234,6 +235,8 @@ require([
       return label;
     }
 
+    let expand = null;
+
     // A function that executes each time a ListItem is created for a layer.
     function setLayerListActions(event) {
       const item = event.item;
@@ -246,11 +249,11 @@ require([
       // "Locate" button
       const locateBtn = document.createElement("calcite-button");
       locateBtn.innerText = "Locate";
-      locateBtn.icon = "zoom-in-magnifying-glass";
+      locateBtn.icon = "layer-zoom-to";
       locateBtn.title = "Zoom to";
       locateBtn.onclick = () => {
         // Show the results panel and update its title
-        resultDivPanel.style.display = 'block';
+        expand.expand();
         layerTitleElement.innerText = layer.title;
 
         // Zoom to the layer's full extent
@@ -478,5 +481,13 @@ require([
         listItemCreatedFunction: setLayerListActions
       });
       view.ui.add(layerList, "top-leading");
+
+      expand = new Expand({
+        view: view,
+        content: resultDivPanel,
+        expandIcon: "dashboard-graph",
+        group: "top-right",
+      });
+      view.ui.add(expand, "top-right");
     });
 });

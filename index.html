@@ -9,46 +9,21 @@
     <style>
       html,
       body,
-      #mapviewDiv,
-      #resultDivPanel {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-      }
-
-      .container {
-        display: flex;
+      #mapviewDiv {
+        position: relative;
         width: 100%;
         height: 100%;
-      }
-
-      #mapviewDiv {
-        flex: 1;
-        position: absolute;
-
-        right: 460px;
-
-        top: 0;
-        left: 0px;
-        bottom: 0px;
-        height: 100%;
-        transition: width 0.3s ease-in-out;
+        margin: 0;
+        padding: 0;
       }
 
       #resultDivPanel {
-        position: absolute;
-        right: 0px;
-        height: 100%;
-
         width: 426px;
-        
         background-color: #fff;
-        display: none;
         overflow-y: auto;
         padding: 1rem;
-        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-        border-left: 1px solid #ddd;
       }
+
 
       .result-title {
         font-size: 1.5rem;
@@ -130,12 +105,7 @@
 
     <!-- ArcGIS CSS -- ESRI Themes -->
     <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css">
-    <!-- Load the ArcGIS Maps SDK for JavaScript core API --- ESRI Themes ----------------
-    <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/dark/main.css" /> -->
-    <!-- Load Calcite -->
-    <script type="module" src="https://js.arcgis.com/calcite-components/3.1.3/calcite.esm.js"></script>
-    <!-- Load map components -->
-    <script type="module" src="https://js.arcgis.com/map-components/4.32/arcgis-map-components.esm.js"></script>
+    
     <!-- ArcGIS JS -->
     <script src="https://js.arcgis.com/4.32/"></script>
 
@@ -144,24 +114,27 @@
 
 <body>
     
-      <div id="mapviewDiv"></div>
+      <div id="mapviewDiv">
 
-      <div id="resultDivPanel">
+        <div id="resultDivPanel">
 
-        <h2 id="layerTitle" class="result-title"></h2>
-        <p class="result-description">This is Sensor Data of Gates and Gauges coming from MIS Database</p>
+          <h2 id="layerTitle" class="result-title"></h2>
 
-        <div class="radio-group">
-          <input type="radio" id="tableView" name="dataView" value="table" checked>
-          <label for="tableView">Table View</label>
-          <input type="radio" id="chartView" name="dataView" value="chart">
-          <label for="chartView">Chart View</label>
+          <p class="result-description">This is Sensor Data of Gates and Gauges coming from MIS Database</p>
+  
+          <div class="radio-group">
+            <input type="radio" id="tableView" name="dataView" value="table" checked>
+            <label for="tableView">Table View</label>
+            <input type="radio" id="chartView" name="dataView" value="chart">
+            <label for="chartView">Chart View</label>
+          </div>
+  
+          <div id="tableContainer"></div>
+  
+          <div id="chartContainer" style="height: 400px; display: none;"></div>
+  
         </div>
-
-        <div id="tableContainer"></div>
-
-        <div id="chartContainer" style="height: 400px; display: none;"></div>
-
+        
       </div>
     
     
