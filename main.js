@@ -242,15 +242,16 @@ require([
       const item = event.item;
       const layer = item.layer;
 
-      // Custom panel to hold the buttons
+      // Custom panel to hold the buttons \\\\\\\\\\\\\\
       const panelContent = document.createElement("div");
       panelContent.classList.add("btn-group");
 
-      // "Locate" button
+      // "Locate" button \\\\\\\\\\\\\\\\\\\
       const locateBtn = document.createElement("calcite-button");
       locateBtn.innerText = "Locate";
       locateBtn.icon = "layer-zoom-to";
       locateBtn.title = "Zoom to";
+      //////////////// \\\\\\\\\\\\\\\\\\\\\\\\\\\\
       locateBtn.onclick = () => {
         // Show the results panel and update its title
         expand.expand();
@@ -273,7 +274,7 @@ require([
       };
       panelContent.appendChild(locateBtn);
       
-      // "Labels" button
+      // "Labels" button \\\\\\\\\\\\\\\\\\\\\\\\\\\\
       const labelsBtn = document.createElement("calcite-button");
       labelsBtn.innerText = "Labels";
       labelsBtn.icon = "text-bubble";
@@ -283,7 +284,7 @@ require([
       };
       panelContent.appendChild(labelsBtn);
       
-      // "Legend" button
+      // "Legend" button \\\\\\\\\\\\\\\\\\\\\\\\\\\\
       const legendBtn = document.createElement("calcite-button");
       legendBtn.innerText = "Legend";
       legendBtn.icon = "legend";
@@ -293,7 +294,7 @@ require([
       };
       panelContent.appendChild(legendBtn);
 
-      // Opacity slider panel
+      // Opacity slider panel \\\\\\\\\\\\\\\\\\\\\\\\\\\\
       const opacitySlider = createOpacitySlider(item);
       panelContent.appendChild(opacitySlider);
 
@@ -302,6 +303,7 @@ require([
         icon: "ellipsis-circle",
         title: "Layer Actions"
       };
+      //~~~~~~~~~
     }
 
     // ~~~~~~~~~ DEFINE LAYERS ~~~~~~~~~~~~~~
@@ -474,20 +476,25 @@ require([
       const layerList = new LayerList({
         view: view,
         position: "top-leading",
-        showCollapseButton: true,
-        showHeading: true,
-        showFilter: true,
+        visibleElements: {
+        filter: true,
+        heading: true,
+        headingLevel: 3,
+        collapseButton: true
+        },
         filterPlaceholder: "Filter layers",
-        listItemCreatedFunction: setLayerListActions
+        listItemCreatedFunction: setLayerListActions,
+        dragEnabled: false
       });
       view.ui.add(layerList, "top-leading");
 
       expand = new Expand({
         view: view,
         content: resultDivPanel,
-        expandIcon: "dashboard-graph",
+        expandIcon: "graph-line-series",
         group: "top-right",
       });
       view.ui.add(expand, "top-right");
     });
+
 });

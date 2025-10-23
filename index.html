@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebGIS with SQL GET Data</title>
 
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.33/esri/themes/light/main.css" />
+
     
     <style>
       html,
@@ -103,11 +108,13 @@
       }
     </style>
 
-    <!-- ArcGIS CSS -- ESRI Themes -->
-    <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/calcite-components/2.5.1/calcite.css" />
     
     <!-- ArcGIS JS -->
-    <script src="https://js.arcgis.com/4.32/"></script>
+    
+    <script type="module" src="https://js.arcgis.com/calcite-components/2.5.1/calcite.esm.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 </head>
@@ -136,6 +143,9 @@
         </div>
         
       </div>
+
+    <!-- 1. Load the ArcGIS SDK base script to enable the 'require' AMD function -->
+    <script src="https://js.arcgis.com/4.33/"></script>
     
     
     <script src="main.js"></script>
