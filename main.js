@@ -9,8 +9,11 @@ require([
   "esri/widgets/Legend",
   "esri/layers/support/LabelClass",
   "esri/PopupTemplate",
-  "esri/widgets/Expand"
-], function(Map, MapView, MapImageLayer, FeatureLayer, GroupLayer, LayerList, Home, Legend, LabelClass, PopupTemplate, Expand) {
+  "esri/widgets/Expand",
+  "esri/widgets/Print"
+], function(Map, MapView, MapImageLayer, FeatureLayer, 
+  GroupLayer, LayerList, Home, Legend, LabelClass, 
+  PopupTemplate, Expand, Print) {
 
     const resultDivPanel = document.getElementById("resultDivPanel");
     const layerTitleElement = document.getElementById("layerTitle");
@@ -307,85 +310,94 @@ require([
     }
 
     // ~~~~~~~~~ DEFINE LAYERS ~~~~~~~~~~~~~~
+    const layer1 = new FeatureLayer({
+      url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/1",
+      title: "CJ Link Gauges",
+      visible: true,
+      outFields: ["*"]
+    });
+    const layer2 = new FeatureLayer({
+      url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/2",
+      title: "Chashma Gauges",
+      visible: true,
+      outFields: ["*"]
+    });
+    const layer3 = new FeatureLayer({
+      url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/3",
+      title: "Chasma",
+      visible: true,
+      outFields: ["*"]
+    });
     const ChashmaBarrageGroup = new GroupLayer({
       title: "Chashma Barrage",
       visible: true,
       layers: [
-        new FeatureLayer({
-          url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/1",
-          title: "CJ Link Gauges",
-          visible: true,
-          outFields: ["*"]
-        }),
-        new FeatureLayer({
-          url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/2",
-          title: "Chashma Gauges",
-          visible: true,
-          outFields: ["*"]
-        }),
-        new FeatureLayer({
-          url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/3",
-          title: "Chasma",
-          visible: true,
-          outFields: ["*"]
-        })
+        layer1,
+        layer2,
+        layer3
       ]
     });
     ////////////////////////////////////////////////////////////////
+    const layer33 = new FeatureLayer({
+      url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/33",
+      title: "Sulemanki Headworks Gauges",
+      visible: true,
+      outFields: ["*"]
+    });
+    const layer34 = new FeatureLayer({
+      url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/34",
+      title: "Suleimanki Headworks",
+      visible: true,
+      outFields: ["*"]
+    });
     const SulemankiHeadworksGroup = new GroupLayer({
       title: "Sulemanki Headworks",
       visible: true,
       layers: [
-        new FeatureLayer({
-          url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/33",
-          title: "Sulemanki Headworks Gauges",
-          visible: true,
-          outFields: ["*"]
-        }),
-        new FeatureLayer({
-          url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/34",
-          title: "Suleimanki Headworks",
-          visible: true,
-          outFields: ["*"]
-        })
+        layer33,
+        layer34
       ]
     });
     ////////////////////////////////////////////////////////////////
+    const layer36 = new FeatureLayer({
+      url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/36",
+      title: "Balloki Gauges",
+      visible: true,
+      outFields: ["*"]
+    });
+    const layer37 = new FeatureLayer({
+      url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/37",
+      title: "Balloki",
+      visible: true,
+      outFields: ["*"]
+    });
     const BallokiHeadworksGroup = new GroupLayer({
       title: "Balloki Headworks",
       visible: true,
       layers: [
-        new FeatureLayer({
-          url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/36",
-          title: "Balloki Gauges",
-          visible: true,
-          outFields: ["*"]
-        }),
-        new FeatureLayer({
-          url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/37",
-          title: "Balloki",
-          visible: true,
-          outFields: ["*"]
-        })
+        layer36,
+        layer37
       ]
     });
     ////////////////////////////////////////////////////////////////
+    const layer42 = new FeatureLayer({
+      url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/42",
+      title: "Trimmu Gauges",
+      visible: true,
+      outFields: ["*"]
+    });
+    const layer43 = new FeatureLayer({
+      url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/43",
+      title: "Trimmu",
+      visible: true,
+      outFields: ["*"]
+    });
     const TrimmuHeadworksGroup = new GroupLayer({
       title: "Trimmu Headworks",
       visible: true,
       layers: [
-        new FeatureLayer({
-          url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/42",
-          title: "Trimmu Gauges",
-          visible: true,
-          outFields: ["*"]
-        }),
-        new FeatureLayer({
-          url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/43",
-          title: "Trimmu",
-          visible: true,
-          outFields: ["*"]
-        })
+        layer42,
+        layer43
       ]
     });
 
@@ -472,6 +484,8 @@ require([
     view.ui.move("navigation-toggle", "top-right");
     view.ui.move("zoom", "top-trailing");
 
+    
+
     view.when(() => {
       const layerList = new LayerList({
         view: view,
@@ -496,5 +510,19 @@ require([
       });
       view.ui.add(expand, "top-right");
     });
+
+    // Add the Print widget to the bottom-right corner of th e map view
+    const print = new Print({
+        view: view,
+        // Use the local print service that can access the private map layers
+        printServiceUrl: "https://113.197.48.2:6443/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
+    });
+
+    const expand2 = new Expand({
+        view: view,
+        content: print,
+        expandIcon: "print"
+    });
+    view.ui.add(expand2, "bottom-right");
 
 });
