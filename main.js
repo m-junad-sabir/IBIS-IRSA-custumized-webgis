@@ -10,10 +10,14 @@ require([
   "esri/layers/support/LabelClass",
   "esri/PopupTemplate",
   "esri/widgets/Expand",
-  "esri/widgets/Print"
+  "esri/widgets/Print",
+  "esri/Basemap",
+  "esri/widgets/BasemapGallery",
+  "esri/widgets/ScaleBar",
+  "esri/widgets/Compass"
 ], function(Map, MapView, MapImageLayer, FeatureLayer, 
   GroupLayer, LayerList, Home, Legend, LabelClass, 
-  PopupTemplate, Expand, Print) {
+  PopupTemplate, Expand, Print, Basemap, BasemapGallery, ScaleBar, Compass) {
 
     const resultDivPanel = document.getElementById("resultDivPanel");
     const layerTitleElement = document.getElementById("layerTitle");
@@ -575,6 +579,18 @@ require([
     view.ui.move("zoom", "top-trailing");
     view.ui.add("logoDiv", "bottom-leading");
 
+    const basemapGallery = new BasemapGallery({
+      view: view
+      });
+
+      let expandBG = new Expand({
+        view: view,
+        content: basemapGallery,
+        expandIcon: "basemap",
+        group: "bottom-right"
+      });
+      view.ui.add(expandBG, "bottom-right");
+
     view.when(() => {
       const layerList = new LayerList({
         view: view,
@@ -608,6 +624,26 @@ require([
       view.ui.add(expand, "top-right");
 
     });
+
+    const scaleBar = new ScaleBar({
+        view: view,
+        style: "line",
+          unit: "metric"
+      });
+
+      const scaleBarExpand = new Expand({
+          view: view,
+          content: scaleBar,
+          expandIcon: "measure-line"
+      });
+      view.ui.add(scaleBarExpand, "bottom-left");
+
+      const compassWidget = new Compass({
+        view: view,
+        });
+
+      // Add the Compass widget to the top left corner of the view
+      view.ui.add(compassWidget, "top-right");
 
     //     printServiceUrl: "https://113.197.48.2:6443/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
 
