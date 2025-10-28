@@ -278,14 +278,14 @@ require([
       panelContent.appendChild(locateBtn);
       
       // "Labels" button \\\\\\\\\\\\\\\\\\\\\\\\\\\\
-      const labelsBtn = document.createElement("calcite-button");
-      labelsBtn.innerText = "Labels";
-      labelsBtn.icon = "text-bubble";
-      labelsBtn.title = "Toggle labels";
-      labelsBtn.onclick = () => {
-        setLabels(layer);
-      };
-      panelContent.appendChild(labelsBtn);
+      // const labelsBtn = document.createElement("calcite-button");
+      // labelsBtn.innerText = "Labels";
+      // labelsBtn.icon = "text-bubble";
+      // labelsBtn.title = "Toggle labels";
+      // labelsBtn.onclick = () => {
+      //   setLabels(layer);
+      // };
+      // panelContent.appendChild(labelsBtn);
       
       // "Legend" button \\\\\\\\\\\\\\\\\\\\\\\\\\\\
       const legendBtn = document.createElement("calcite-button");
@@ -304,10 +304,13 @@ require([
       item.panel = {
         content: panelContent,
         icon: "ellipsis-circle",
+        //open: true,
         title: "Layer Actions"
       };
       //~~~~~~~~~
     }
+
+    
 
     // ~~~~~~~~~ DEFINE LAYERS ~~~~~~~~~~~~~~
     const layer1 = new FeatureLayer({
@@ -341,18 +344,18 @@ require([
     const layer33 = new FeatureLayer({
       url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/33",
       title: "Sulemanki Headworks Gauges",
-      visible: true,
+      visible: false,
       outFields: ["*"]
     });
     const layer34 = new FeatureLayer({
       url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/34",
       title: "Suleimanki Headworks",
-      visible: true,
+      visible: false,
       outFields: ["*"]
     });
     const SulemankiHeadworksGroup = new GroupLayer({
       title: "Sulemanki Headworks",
-      visible: true,
+      visible: false,
       layers: [
         layer33,
         layer34
@@ -362,18 +365,18 @@ require([
     const layer36 = new FeatureLayer({
       url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/36",
       title: "Balloki Gauges",
-      visible: true,
+      visible: false,
       outFields: ["*"]
     });
     const layer37 = new FeatureLayer({
       url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/37",
       title: "Balloki",
-      visible: true,
+      visible: false,
       outFields: ["*"]
     });
     const BallokiHeadworksGroup = new GroupLayer({
       title: "Balloki Headworks",
-      visible: true,
+      visible: false,
       layers: [
         layer36,
         layer37
@@ -383,23 +386,63 @@ require([
     const layer42 = new FeatureLayer({
       url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/42",
       title: "Trimmu Gauges",
-      visible: true,
+      visible: false,
       outFields: ["*"]
     });
     const layer43 = new FeatureLayer({
       url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/43",
       title: "Trimmu",
-      visible: true,
+      visible: false,
       outFields: ["*"]
     });
     const TrimmuHeadworksGroup = new GroupLayer({
       title: "Trimmu Headworks",
-      visible: true,
+      visible: false,
       layers: [
         layer42,
         layer43
       ]
     });
+    ////////////////////////////////////////////////////////////////
+    const BigGroup = new GroupLayer({
+
+        url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/84",
+        title: "Boundary Layers",
+        visible: true,
+        layers: [
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/85",
+                title: "Irrigation Network",
+                visible: false,
+                outFields: ["*"]
+            }),
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/86",
+                title: "Line of Control (LOC)",
+                visible: true,
+                outFields: ["*"]
+            }),
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/87",
+                title: "Major Cities",
+                visible: true,
+                outFields: ["*"]
+            }),
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/88",
+                title: "River Network",
+                visible: true,
+                outFields: ["*"]
+            }),
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/89",
+                title: "Provincial Boundary",
+                visible: true,
+                outFields: ["*"]
+            })
+        ]
+    });
+    ///////////////////////////////////////////////////////////////
 
     // ~~~~~~~~~~~ DEFINE POP-UP TEMPLATES ~~~~~~~~~~~~~~~~
     createPopupTemplate(ChashmaBarrageGroup.layers.getItemAt(0), [
@@ -459,11 +502,58 @@ require([
       { fieldName: "Site_Id", label: "Site_Id" },
       { fieldName: "Site", label: "Site" }
     ]);
+    ////////////////////////////////////////////////////////////////
+    createPopupTemplate(BigGroup.layers.getItemAt(0), [
+        { fieldName: "CanalCode", label: "CanalCode" },
+        { fieldName: "River", label: "River" },
+        { fieldName: "CNLName", label: "CNLName" },
+        { fieldName: "CCAName", label: "CCAName" },
+        { fieldName: "CCACode", label: "CCACode" },
+        { fieldName: "ACZCode", label: "ACZCode" },
+        { fieldName: "ACZName", label: "ACZName" },
+        { fieldName: "Province", label: "Province" },
+        { fieldName: "Basin", label: "Basin" },
+        { fieldName: "Doab", label: "Doab" },
+        { fieldName: "Type", label: "Type" },
+        { fieldName: "W_Type", label: "W_Type" },
+        { fieldName: "Type_New", label: "Type_New" }
+    ]);
+    createPopupTemplate(BigGroup.layers.getItemAt(1), [
+        { fieldName: "Name", label: "Name" },
+        { fieldName: "Id", label: "Id" },
+        { fieldName: "Lenght", label: "Lenght" }
+        
+    ]);
+    createPopupTemplate(BigGroup.layers.getItemAt(2), [
+        { fieldName: "name", label: "name" },
+        { fieldName: "population", label: "population" },
+        { fieldName: "type", label: "type" },
+        { fieldName: "Sel", label: "Sel" },
+        { fieldName: "osm_id", label: "osm_id" }
+    ]);
+    createPopupTemplate(BigGroup.layers.getItemAt(3), [
+        { fieldName: "RiverName", label: "RiverName" },
+        { fieldName: "Remarks", label: "Remarks" },
+        { fieldName: "LenghtKM", label: "LenghtKM" }
+    ]);
+    createPopupTemplate(BigGroup.layers.getItemAt(4), [
+        { fieldName: "Name_0", label: "Name" },
+        { fieldName: "Name_1", label: "Name" },
+        { fieldName: "VARNAME_1", label: "Var Name" },
+        { fieldName: "NL_NAME_1", label: "NL Name" },
+        { fieldName: "HASC_1", label: "hasc" },
+        { fieldName: "CC_1", label: "cc" },
+        { fieldName: "ENGTYPE_1", label: "eng name" },
+        { fieldName: "REMARKS_1", label: "remarks" },
+        { fieldName: "Shape_Area", label: "area" }
+    ]);
+    ////////////////////////////////////////////////////////////////
 
     // Create a new Map with the defined layers
     const map = new Map({
       basemap: "satellite",
       layers: [
+        BigGroup,
         TrimmuHeadworksGroup,
         BallokiHeadworksGroup,
         SulemankiHeadworksGroup,
@@ -484,8 +574,6 @@ require([
     view.ui.move("navigation-toggle", "top-right");
     view.ui.move("zoom", "top-trailing");
 
-    
-
     view.when(() => {
       const layerList = new LayerList({
         view: view,
@@ -502,6 +590,14 @@ require([
       });
       view.ui.add(layerList, "top-leading");
 
+      // Open the first GroupLayer by default
+      layerList.when(() => {
+        const firstGroupLayerItem = layerList.operationalItems.find(item => item.layer.type === 'group');
+        if (firstGroupLayerItem) {
+          firstGroupLayerItem.open = true;
+        }
+      });
+
       expand = new Expand({
         view: view,
         content: resultDivPanel,
@@ -509,20 +605,9 @@ require([
         group: "top-right",
       });
       view.ui.add(expand, "top-right");
+
     });
 
-    // Add the Print widget to the bottom-right corner of th e map view
-    const print = new Print({
-        view: view,
-        // Use the local print service that can access the private map layers
-        printServiceUrl: "https://113.197.48.2:6443/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
-    });
-
-    const expand2 = new Expand({
-        view: view,
-        content: print,
-        expandIcon: "print"
-    });
-    view.ui.add(expand2, "bottom-right");
+    //     printServiceUrl: "https://113.197.48.2:6443/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
 
 });
