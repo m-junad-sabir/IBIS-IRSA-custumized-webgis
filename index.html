@@ -29,6 +29,8 @@
 
 <body>
   <!-- Header Image -->
+
+  <div id="app-container">
     <div id="header">
         <img src="./img/IRSA_header.png" alt="Header Image" id="imgofheader">
     </div>
@@ -36,25 +38,20 @@
     <div id="mapviewDiv">
 
       <div id="resultDivPanel">
-
         <h2 id="layerTitle" class="result-title"></h2>
-
         <p class="result-description">This is Sensor Data of Gates and Gauges coming from MIS Database</p>
-
         <div class="radio-group">
           <input type="radio" id="tableView" name="dataView" value="table" checked>
           <label for="tableView">Table View</label>
           <input type="radio" id="chartView" name="dataView" value="chart">
           <label for="chartView">Chart View</label>
         </div>
-
         <div id="tableContainer"></div>
-
         <div id="chartContainer" style="height: 400px; display: none;"></div>
-
-      </div>
+      </div> 
       
-    </div>
+    </div> <!-- mapviewDiv ends here -->
+  </div> <!-- app-container ends here -->
 
     <div id="logoDiv" class="esri-widget">
         <img src="./img/DP-for-webgis.png" id="logoimg" title="Junaid Sabir WebGIS Developer" alt="Junaid Sabir WebGIS Developer" />
