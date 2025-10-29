@@ -1,6 +1,7 @@
 # Web GIS Application
 
 PROJECT: "INSTALLATION OF TELEMETRY SYSTEM FOR REAL TIME DISCHARGE MONITORING AT 27 KEY SITES ON INDUS BASIN IRRIGATION SYSTEM (IBIS)"
+
 This is a web-based GIS application that allows users to visualize and interact with spatial and SQL data. It's designed to showcase Advance WebGIS functionalities of ArcGIS API in a user-friendly interface.
 
 ## Live Demo
@@ -37,7 +38,10 @@ This Webapp is under development for the IRSA (INDUS RIVER SYSTEM AUTHORITY) - A
 *   **Responsive Design:** The application is designed to work on different screen sizes, from desktops to mobile devices.
 
 ## GitHub Page Link
-[Link](https://m-junad-sabir.github.io/IBIS-IRSA-custumized-webgis/)
+
+[Link to show this App Demo](https://m-junad-sabir.github.io/IBIS-IRSA-custumized-webgis/)
+
+Disclaimer: GIS Layers will not be loaded in this version of webapp because the Data is not public.
 
 ## Built With
 
@@ -46,15 +50,15 @@ This Webapp is under development for the IRSA (INDUS RIVER SYSTEM AUTHORITY) - A
 *   CSS
 *   JavaScript
 
-The Real Application is developed in .NET 8 -- ASP.NET Framwork with C# Language to GET Data from SQL Server Database.
+The Real Application is developed in .NET 8 / ASP.NET Framwork with C# Language to GET Data from SQL Server Database.
 
 ## Setup and Installation
 
 1.  Clone the repository
-2.  Add your Own Published GIS Layers on ArcGIS Server
+2.  Add your Own Published GIS Layers from ArcGIS Server
 3.  Change Header Image and LogoDiv Image
-4.  Make Backend using any backend language and make Database to show data in the Result Panel
-5.  Program your code to connect your backend code to javascript code so that your data can be GET in the Result Panel
+4.  Make the Backend and also connect and make a Database to GET data in the Result Panel
+5.  Program your code to connect your backend code with JavaScript code so that your data can be GET in the Result Panel
 6.  Open `index.html` in your web browser
 
 ## License
