@@ -9,8 +9,14 @@ require([
   "esri/widgets/Legend",
   "esri/layers/support/LabelClass",
   "esri/PopupTemplate",
-  "esri/widgets/Expand"
-], function(Map, MapView, MapImageLayer, FeatureLayer, GroupLayer, LayerList, Home, Legend, LabelClass, PopupTemplate, Expand) {
+  "esri/widgets/Expand",
+  "esri/Basemap",
+  "esri/widgets/BasemapGallery",
+  "esri/widgets/ScaleBar",
+  "esri/widgets/Compass"
+], function(Map, MapView, MapImageLayer, FeatureLayer, GroupLayer, 
+  LayerList, Home, Legend, LabelClass, PopupTemplate, Expand,
+  Basemap, BasemapGallery, ScaleBar, Compass) {
 
     const resultDivPanel = document.getElementById("resultDivPanel");
     const layerTitleElement = document.getElementById("layerTitle");
@@ -188,27 +194,27 @@ require([
     }
 
     // Label class for "Labels" action
-    const labelClass = new LabelClass({
-      symbol: {
-        type: "text", // autocasts as new TextSymbol()
-        color: "black",
-        haloColor: "white",
-        haloSize: 1.5,
-        font: {
-          family: "Noto Sans",
-          size: 10,
-        },
-      },
-      labelPlacement: "above-center",
-      labelExpressionInfo: {
-        expression: "$feature.Name || $feature.Zone || $feature.Circle",
-      },
-    });
+    // const labelClass = new LabelClass({
+    //   symbol: {
+    //     type: "text", // autocasts as new TextSymbol()
+    //     color: "black",
+    //     haloColor: "white",
+    //     haloSize: 1.5,
+    //     font: {
+    //       family: "Noto Sans",
+    //       size: 10,
+    //     },
+    //   },
+    //   labelPlacement: "above-center",
+    //   labelExpressionInfo: {
+    //     expression: "$feature.Name || $feature.Zone || $feature.Circle",
+    //   },
+    // });
 
     // Helper function to toggle labels
-    function setLabels(layer) {
-      layer.labelsVisible = !layer.labelsVisible;
-    }
+    // function setLabels(layer) {
+    //   layer.labelsVisible = !layer.labelsVisible;
+    // }
 
     // Helper function to create and append the Calcite slider
     function createOpacitySlider(item) {
@@ -275,14 +281,14 @@ require([
       panelContent.appendChild(locateBtn);
       
       // "Labels" button \\\\\\\\\\\\\\\\\\\\\\\\\\\\
-      const labelsBtn = document.createElement("calcite-button");
-      labelsBtn.innerText = "Labels";
-      labelsBtn.icon = "text-bubble";
-      labelsBtn.title = "Toggle labels";
-      labelsBtn.onclick = () => {
-        setLabels(layer);
-      };
-      panelContent.appendChild(labelsBtn);
+      // const labelsBtn = document.createElement("calcite-button");
+      // labelsBtn.innerText = "Labels";
+      // labelsBtn.icon = "text-bubble";
+      // labelsBtn.title = "Toggle labels";
+      // labelsBtn.onclick = () => {
+      //   setLabels(layer);
+      // };
+      // panelContent.appendChild(labelsBtn);
       
       // "Legend" button \\\\\\\\\\\\\\\\\\\\\\\\\\\\
       const legendBtn = document.createElement("calcite-button");
@@ -388,6 +394,45 @@ require([
         })
       ]
     });
+    ////////////////////////////////////////////////////////////////
+    const BigGroup = new GroupLayer({
+
+        url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/84",
+        title: "Boundary Layers",
+        visible: true,
+        layers: [
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/85",
+                title: "Irrigation Network",
+                visible: false,
+                outFields: ["*"]
+            }),
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/86",
+                title: "Line of Control (LOC)",
+                visible: true,
+                outFields: ["*"]
+            }),
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/87",
+                title: "Major Cities",
+                visible: true,
+                outFields: ["*"]
+            }),
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/88",
+                title: "River Network",
+                visible: true,
+                outFields: ["*"]
+            }),
+            new FeatureLayer({
+                url: "https://113.197.48.2:6443/arcgis/rest/services/Bak/Layers/MapServer/89",
+                title: "Provincial Boundary",
+                visible: true,
+                outFields: ["*"]
+            })
+        ]
+    });
 
     // ~~~~~~~~~~~ DEFINE POP-UP TEMPLATES ~~~~~~~~~~~~~~~~
     createPopupTemplate(ChashmaBarrageGroup.layers.getItemAt(0), [
@@ -447,11 +492,57 @@ require([
       { fieldName: "Site_Id", label: "Site_Id" },
       { fieldName: "Site", label: "Site" }
     ]);
+    ////////////////////////////////////////////////////////////////
+    createPopupTemplate(BigGroup.layers.getItemAt(0), [
+        { fieldName: "CanalCode", label: "CanalCode" },
+        { fieldName: "River", label: "River" },
+        { fieldName: "CNLName", label: "CNLName" },
+        { fieldName: "CCAName", label: "CCAName" },
+        { fieldName: "CCACode", label: "CCACode" },
+        { fieldName: "ACZCode", label: "ACZCode" },
+        { fieldName: "ACZName", label: "ACZName" },
+        { fieldName: "Province", label: "Province" },
+        { fieldName: "Basin", label: "Basin" },
+        { fieldName: "Doab", label: "Doab" },
+        { fieldName: "Type", label: "Type" },
+        { fieldName: "W_Type", label: "W_Type" },
+        { fieldName: "Type_New", label: "Type_New" }
+    ]);
+    createPopupTemplate(BigGroup.layers.getItemAt(1), [
+        { fieldName: "Name", label: "Name" },
+        { fieldName: "Id", label: "Id" },
+        { fieldName: "Lenght", label: "Lenght" }
+        
+    ]);
+    createPopupTemplate(BigGroup.layers.getItemAt(2), [
+        { fieldName: "name", label: "name" },
+        { fieldName: "population", label: "population" },
+        { fieldName: "type", label: "type" },
+        { fieldName: "Sel", label: "Sel" },
+        { fieldName: "osm_id", label: "osm_id" }
+    ]);
+    createPopupTemplate(BigGroup.layers.getItemAt(3), [
+        { fieldName: "RiverName", label: "RiverName" },
+        { fieldName: "Remarks", label: "Remarks" },
+        { fieldName: "LenghtKM", label: "LenghtKM" }
+    ]);
+    createPopupTemplate(BigGroup.layers.getItemAt(4), [
+        { fieldName: "Name_0", label: "Name" },
+        { fieldName: "Name_1", label: "Name" },
+        { fieldName: "VARNAME_1", label: "Var Name" },
+        { fieldName: "NL_NAME_1", label: "NL Name" },
+        { fieldName: "HASC_1", label: "hasc" },
+        { fieldName: "CC_1", label: "cc" },
+        { fieldName: "ENGTYPE_1", label: "eng name" },
+        { fieldName: "REMARKS_1", label: "remarks" },
+        { fieldName: "Shape_Area", label: "area" }
+    ]);
 
     // Create a new Map with the defined layers
     const map = new Map({
       basemap: "satellite",
       layers: [
+        BigGroup,
         TrimmuHeadworksGroup,
         BallokiHeadworksGroup,
         SulemankiHeadworksGroup,
@@ -471,6 +562,37 @@ require([
     view.ui.add(new Home({ view: view }), "top-trailing");
     view.ui.move("navigation-toggle", "top-right");
     view.ui.move("zoom", "top-trailing");
+
+    const basemapGallery = new BasemapGallery({
+        view: view
+    });
+    const expandBG = new Expand({
+        view: view,
+        content: basemapGallery,
+        expandIcon: "basemap"
+        
+    });
+    view.ui.add(expandBG, "bottom-right");
+
+    const compassWidget = new Compass({
+            view: view,
+    });
+
+    // Add the Compass widget to the top left corner of the view
+    view.ui.add(compassWidget, "top-right");
+
+    const scaleBar = new ScaleBar({
+        view: view,
+        style: "line",
+        unit: "metric"
+    });
+
+    const scaleBarExpand = new Expand({
+        view: view,
+        content: scaleBar,
+        expandIcon: "measure-line"
+    });
+    view.ui.add(scaleBarExpand, "bottom-left");
 
     view.when(() => {
       const layerList = new LayerList({
